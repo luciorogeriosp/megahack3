@@ -1,0 +1,12 @@
+{
+  "name": "megahack3",
+  "displayName": "megahack3",
+  "expo": {
+    "name": "megahack3",
+    "slug": "megahack3",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
