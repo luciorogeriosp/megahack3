@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Image, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { commonStyle } from '../../components/styles/common-style'
@@ -21,17 +21,20 @@ const PageMerchant = () => {
     const [filterList, setFilterList] = useState<FilterModel[]>([]);
     const [filterSelected, setFilterSelected] = useState<number>();
     const [merchantList, setMerchantList] = useState<MerchantModel[]>([]);
+
     useEffect(() => {
+      async function loadFilter() {      
+        const filterListTemp: Array<FilterModel> = [];
+        filterListTemp.push(new FilterModel(1, 'Distância'));
+        filterListTemp.push(new FilterModel(2, 'Pontuação'));
+        filterListTemp.push(new FilterModel(3, 'Lotação'));
+        filterListTemp.push(new FilterModel(4, 'Preço'));
+        setFilterList(filterListTemp);
+        
+        setFilterSelected(1);        
+      }  
 
-      const filterListTemp: Array<FilterModel> = [];
-      filterListTemp.push(new FilterModel(1, 'Distância'));
-      filterListTemp.push(new FilterModel(2, 'Pontuação'));
-      filterListTemp.push(new FilterModel(3, 'Lotação'));
-      filterListTemp.push(new FilterModel(4, 'Preço'));
-      setFilterList(filterListTemp);
-      
-      setFilterSelected(1);
-
+      loadFilter();
     }, []);    
 
     useEffect(() => {
@@ -47,8 +50,18 @@ const PageMerchant = () => {
       navigation.navigate("Menu");
     }
 
+    function handleNavigateHome(){
+      navigation.navigate("PageMerchant");
+    }
+
     function handleFilter(item: FilterModel){
-      setFilterSelected(item.id);
+      if (item!==undefined){
+        setFilterSelected(item.id);
+      }
+    }
+
+    function handleMerchant(item: MerchantModel){
+      navigation.navigate("PageMerchantDetail", item);
     }
 
     return (        
@@ -93,10 +106,22 @@ const PageMerchant = () => {
               </View>              
             </View>
           </View>
-          <ScrollView style={commonStyle.content}>
+          {merchantList.length > 0 ? 
+          (
             <FlatList
-              data={merchantList.sort((a, b) => a.id.localeCompare(b.id))}
-              renderItem={({ item }) => (
+            data={merchantList.sort((a, b) => a.id.toString().localeCompare(b.id.toString()))}
+            horizontal={false}
+            style={{
+              paddingTop: 8,
+              paddingLeft: 16,
+              paddingRight: 16,
+              paddingBottom: 0,
+            }}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                key={item.id}
+                onPress={() => handleMerchant(item)}
+              >
                 <View
                   style={{
                     maxHeight: 150,
@@ -104,38 +129,90 @@ const PageMerchant = () => {
                     borderRadius: 14,
                     borderTopLeftRadius: 0,
                     backgroundColor: "#ffffff",
-                    marginBottom:15,
+                    marginBottom:16,
                     padding: 10,
                   }}
-                  key={item.id}>
+                >
                   <View
-                    style={{
-                      flex:1,
-                      flexDirection: 'row',
-                      justifyContent: 'space-between'
-                    }}
-                  >
+                      style={{
+                        flex:1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                      }}
+                    >
                     <View>
                       <Text style={commonStyle.merchantListTitle}>{item.name}</Text>
-                      <Text style={commonStyle.merchantListDescription}>{item.adress}</Text>
-                      <Text style={commonStyle.merchantListDescription}><FontAwesome name="location-arrow" color="#3c3c3c" size={12}></FontAwesome> {(item.id * 127)} metros</Text>
-                  <Text style={commonStyle.merchantListDescription}><FontAwesome name="users" color="#3c3c3c" size={12}></FontAwesome> {Math.round(item.capacity / 4 * 1.5)} de {item.capacity}</Text>
+                      <Text style={commonStyle.merchantListDescription}>{item.address}</Text>
+                      <Text style={commonStyle.merchantListDescription}><FontAwesome name="location-arrow" color="#3c3c3c" size={12}></FontAwesome> {item.distance} metros</Text>
+                      <Text style={commonStyle.merchantListDescription}><FontAwesome name="users" color="#3c3c3c" size={12}></FontAwesome> {Math.round(item.capacity / 4 * 1.5)} de {item.capacity}</Text>
+                      <View>
+                        <View style={{minHeight:12, maxHeight:12, flex: 1, flexDirection: 'row' }}>
+                          {
+                            item.price >= 1 ?
+                            (
+                              <FontAwesome name="money" color="#206b28" size={12} style={{paddingRight: 2}}></FontAwesome>                              
+                            ) : null
+                          }
+                          {
+                            item.price >= 2 ?
+                            (
+                              <FontAwesome name="money" color="#206b28" size={12} style={{paddingRight: 2}}></FontAwesome>                              
+                            ) : null
+                          }
+                          {
+                            item.price >= 3 ?
+                            (
+                              <FontAwesome name="money" color="#206b28" size={12} style={{paddingRight: 2}}></FontAwesome>                              
+                            ) : null
+                          }
+                          {
+                            item.price >= 4 ?
+                            (
+                              <FontAwesome name="money" color="#206b28" size={12} style={{paddingRight: 2}}></FontAwesome>                              
+                            ) : null
+                          }
+                          {
+                            item.price >= 5 ?
+                            (
+                              <FontAwesome name="money" color="#206b28" size={12} style={{paddingRight: 2}}></FontAwesome>                              
+                            ) : null
+                          }                                                                              
+                        </View>
+                      </View>
                     </View>
                     <View style={{minWidth: 80, maxWidth:80, minHeight:80, maxHeight:80, }}>
                       <Image style={commonStyle.merchantLogo} source={{uri: item.logo }}/>
+                      <Text style={commonStyle.merchantListCategory}>{item.category}</Text>
+                      <View style={{minHeight:12, maxHeight:12, flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                        <FontAwesome name="star" color={item.evaluation >= 1 ? "#faae02" : "#cccccc"} size={12}></FontAwesome>
+                        <FontAwesome name="star" color={item.evaluation >= 2 ? "#faae02" : "#cccccc"} size={12}></FontAwesome>
+                        <FontAwesome name="star" color={item.evaluation >= 3 ? "#faae02" : "#cccccc"} size={12}></FontAwesome>
+                        <FontAwesome name="star" color={item.evaluation > 4 ? "#faae02" : "#cccccc"} size={12}></FontAwesome>
+                        <FontAwesome name="star" color={item.evaluation > 5 ? "#faae02" : "#cccccc"} size={12}></FontAwesome>
+                      </View>
                     </View>
                   </View>
                 </View>
-              )}
-            >                  
-            </FlatList>  
-            <View style={{marginTop:15}}></View>
-          </ScrollView>
+              </TouchableOpacity>
+            )}
+          >                  
+          </FlatList>            
+          ) : 
+          (
+            <View style={commonStyle.loadingBox}>
+              <View>
+                <ActivityIndicator>                
+                </ActivityIndicator>
+                <Text style={commonStyle.loadingText}>aguarde...</Text>
+              </View>
+            </View>
+          )
+          }
           <View style={footerStyle.footer}>
             <View style={footerStyle.footerItems}>
               <View style={footerStyle.footerItem}>
                 <TouchableOpacity
-                  onPress={() => alert('Pressed!')}
+                  onPress={() => handleNavigateHome()}
                 >
                   <Text style={{opacity: 0.5, paddingTop: 2}}>
                     <FontAwesome name="home" size={42}></FontAwesome>
