@@ -2,9 +2,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Login from './pages/login';
-import PageDashboard from './pages/dashboard/index';
 import PageMerchant from './pages/merchant/index';
+import PageMerchantDetail from './pages/merchant/detail';
+import PageCheckoutCart from './pages/checkout/cart';
 
 const AppStack = createStackNavigator();
 
@@ -20,8 +20,8 @@ const Routes = () => {
                 }}
             >
                 <AppStack.Screen name="PageMerchant" component={PageMerchant} />
-                <AppStack.Screen name="PageDashboard" component={PageDashboard} />
-                <AppStack.Screen name="Login" component={Login} />                
+                <AppStack.Screen name="PageMerchantDetail" component={PageMerchantDetail} />
+                <AppStack.Screen name="PageCheckoutCart" component={PageCheckoutCart} />
             </AppStack.Navigator>
         </NavigationContainer>
     );

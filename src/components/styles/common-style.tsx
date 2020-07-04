@@ -1,17 +1,17 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
-const fullWidth = Dimensions.get('window').width; //full width
+const fullWidth = Dimensions.get('window').width;
+const fullHeight = Dimensions.get('window').height;
+
 const headerFullWidth = fullWidth - 36;
+
 const commonStyle = StyleSheet.create({
     container: {
       flex: 1,
     },
 
     content: {
-      paddingTop:16 ,
-      paddingRight:16,
-      paddingBottom:16,
-      paddingLeft:16,
+    paddingBottom:16,
     },
 
     row: {
@@ -48,7 +48,27 @@ const commonStyle = StyleSheet.create({
       fontSize: 22,
       fontFamily: 'Ubuntu_700Bold',      
     },
-  
+
+    loadingBox: {
+      justifyContent: 'space-between', 
+      paddingVertical: '50%',
+      height: fullHeight - 108
+    },
+
+    loadingText: {
+      textAlign: 'center',
+      paddingTop: 10,
+      fontSize: 12,
+      fontFamily: 'Roboto_400Regular',   
+    }, 
+
+    NoDataText: {
+      textAlign: 'center',
+      paddingTop: 10,
+      fontSize: 12,
+      fontFamily: 'Roboto_400Regular',   
+    }, 
+
     comment: {
       color: '#0C090C',
       fontSize: 12,
@@ -71,49 +91,64 @@ const commonStyle = StyleSheet.create({
       color: '#32c0e6'
     }, 
 
-    buttonSuccess: {
-      backgroundColor: '#009589',
-      height: 60,
+    button: {
+      backgroundColor: '#b9b9b9',
+      height: 40,
       flexDirection: 'row',
       borderRadius: 10,
       overflow: 'hidden',
       alignItems: 'center',
       marginTop: 8,
+      alignSelf: 'center'
     },
-  
+
+    buttonSelected: {
+      backgroundColor: '#6200ee',
+      height: 40,
+      flexDirection: 'row',
+      borderRadius: 10,
+      overflow: 'hidden',
+      alignItems: 'center',
+      marginTop: 8,
+      alignSelf: 'center'
+    },    
+
     buttonWarning: {
       backgroundColor: '#ffc108',
-      height: 60,
+      height: 40,
       flexDirection: 'row',
       borderRadius: 10,
       overflow: 'hidden',
       alignItems: 'center',
       marginTop: 8,
+      alignSelf: 'center'
     },
 
     buttonError: {
       backgroundColor: '#ff5722',
-      height: 60,
+      height: 40,
       flexDirection: 'row',
       borderRadius: 10,
       overflow: 'hidden',
       alignItems: 'center',
       marginTop: 8,
+      alignSelf: 'center'
     },
     
     buttonPrimary: {
       backgroundColor: '#2096f3',
-      height: 60,
+      height: 40,
       flexDirection: 'row',
       borderRadius: 10,
       overflow: 'hidden',
       alignItems: 'center',
       marginTop: 8,
+      alignSelf: 'center'
     },    
 
     buttonIcon: {
-      height: 60,
-      width: 60,
+      height: 40,
+      width: 40,
       backgroundColor: 'rgba(0, 0, 0, 0.1)',
       borderTopLeftRadius: 10,
       borderBottomLeftRadius: 10,
@@ -124,9 +159,9 @@ const commonStyle = StyleSheet.create({
     buttonText: {
       justifyContent: 'center',
       textAlign: 'center',
-      color: '#FFF',
+      color: '#e7e7e7',
       fontFamily: 'Roboto_500Medium',
-      fontSize: 16,
+      fontSize: 14,
       marginLeft:10,
       marginRight:10,
     },  
@@ -179,7 +214,16 @@ const commonStyle = StyleSheet.create({
       height: 80,
       resizeMode: 'cover',
       borderRadius: 10,
+      borderWidth: 0.4,
+      borderColor: '#ccc'
     },
+
+    merchantPhoto: {
+      width: '100%',
+      height: 150,
+      resizeMode: 'cover',
+      borderRadius: 10,
+    },    
 
     merchantListTitle: {
       color: '#3c3c3c',
@@ -192,6 +236,48 @@ const commonStyle = StyleSheet.create({
       fontSize: 13,
       fontFamily: 'Roboto_400Regular',
     },        
+
+    merchantListCategory: {
+      color: '#3c3c3c',
+      fontSize: 10,
+      fontFamily: 'Roboto_400Regular',
+      textAlign: 'center'
+    },  
+
+    merchantDetailTitle: {
+      color: '#3c3c3c',
+      fontSize: 18,
+      fontFamily: 'Roboto_500Medium',
+      textAlign: 'left'
+    },      
+
+    merchantDetailText: {
+      color: '#3c3c3c',
+      fontSize: 12,
+      fontFamily: 'Roboto_400Regular',
+      textAlign: 'left'
+    },      
+
+    merchantMenuTitle: {
+      color: '#3c3c3c',
+      fontSize: 18,
+      fontFamily: 'Roboto_500Medium',
+    },    
+
+    merchantMenuDescription: {
+      color: '#3c3c3c',
+      fontSize: 13,
+      fontFamily: 'Roboto_400Regular',
+    },       
+
+    menuPhoto: {
+      width: '100%',
+      height: 120,
+      resizeMode: 'cover',
+      borderRadius: 10,
+      borderWidth: 0.4,
+      borderColor: '#ccc'
+    },    
 })
   
 export { commonStyle }    
