@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import PageMerchant from './pages/merchant/index';
 import PageMerchantDetail from './pages/merchant/detail';
 import PageCheckoutCart from './pages/checkout/cart';
+import PageCheckoutEvaluate from './pages/checkout/evaluate';
 
 const AppStack = createStackNavigator();
 
@@ -19,6 +20,7 @@ const Routes = () => {
                     }
                 }}
             >
+                <AppStack.Screen name="PageCheckoutEvaluate" component={PageCheckoutEvaluate} />
                 <AppStack.Screen name="PageMerchant" component={PageMerchant} />
                 <AppStack.Screen name="PageMerchantDetail" component={PageMerchantDetail} />
                 <AppStack.Screen name="PageCheckoutCart" component={PageCheckoutCart} />
