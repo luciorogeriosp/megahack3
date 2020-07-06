@@ -15,7 +15,6 @@ import { MerchantModel } from '../../model/merchant-model';
 import { MenuModel } from '../../model/menu-model';
 
 import { getMenu } from '../../services/menu-service';
-import { HeaderBackground } from '@react-navigation/stack';
 
 interface ParamsMerchant {
   id: number;
@@ -43,7 +42,7 @@ const PageMerchantDetail = () => {
         filterListTemp.push(new FilterModel(4, 'Preço'));
         setFilterList(filterListTemp);
         
-        setFilterSelected(1);        
+        //setFilterSelected(1);        
       }
 
       loadFilter().then(()=> {
@@ -59,7 +58,7 @@ const PageMerchantDetail = () => {
 
       async function getMenuFromService() {    
         const menuListTemp = await getMenu(merchant.id);
-        if (menuList === undefined || menuList.length === 0){
+        if (menuList === null || menuList === undefined || menuList.length === 0){
           setMenuList(menuListTemp);        
         }        
       }      
@@ -96,16 +95,20 @@ const PageMerchantDetail = () => {
       return merchantPhoto;
     }
 
-    function handleNavigateMenu(){
-      navigation.navigate("Menu");
-    }
-
     function handleCart(item: MenuModel){
       navigation.navigate("PageCheckoutCart", item);
     }
 
     function handleNavigateHome(){
       navigation.navigate("PageMerchant");
+    }
+
+    function handleClub(){
+      navigation.navigate("PageClub");
+    }
+
+    function handleProfile(){
+      navigation.navigate("PageProfile");
     }
     
     function handleFilter(item: FilterModel){
@@ -169,7 +172,7 @@ const PageMerchantDetail = () => {
               paddingLeft: 16,
               paddingRight: 16,
               paddingBottom: 0,
-              minHeight: 275
+              minHeight: 275,
             }}
           >
             <View style={{minHeight: 150, maxHeight: 150,}}>
@@ -237,15 +240,8 @@ const PageMerchantDetail = () => {
             >
               <View style={{ 
                 flex: 1, 
-                paddingLeft: 10, 
-                paddingRight: 10 
               }}>
                 <RectButton style={subpage === "cardapio" ? commonStyle.buttonSelected : commonStyle.button} onPress={() => { handleSubmenu('cardapio')}}>
-                  <View style={commonStyle.buttonIcon}>
-                    <Text>
-                      <FontAwesome name="th-list"  color="#e7e7e7" size={12}></FontAwesome>
-                    </Text>
-                  </View>
                   <Text style={commonStyle.buttonText}>
                     Cardápio
                   </Text>
@@ -253,80 +249,309 @@ const PageMerchantDetail = () => {
               </View>
               <View style={{ 
                 flex: 1, 
+                }
+              }>
+                <RectButton style={subpage === "novidades" ? commonStyle.buttonSelected : commonStyle.button} onPress={() => { handleSubmenu('novidades')}}>
+                  <Text style={commonStyle.buttonText}>
+                    Novidades (2)
+                  </Text>
+                </RectButton>                   
+              </View>
+              <View style={{ 
+                flex: 1, 
                 paddingLeft: 10, 
                 paddingRight: 10,
               }}>
-                <RectButton style={subpage === "novidades" ? commonStyle.buttonSelected : commonStyle.button} onPress={() => { handleSubmenu('novidades')}}>
-                  <View style={commonStyle.buttonIcon}>
-                    <Text>
-                      <FontAwesome name="bullhorn"  color="#e7e7e7" size={12}></FontAwesome>
-                    </Text>
-                  </View>
+                <RectButton style={subpage === "fornecedores" ? commonStyle.buttonSelected : commonStyle.button} onPress={() => { handleSubmenu('fornecedores')}}>
                   <Text style={commonStyle.buttonText}>
-                    Novidades {merchant!.id}
+                    Fornecedores
                   </Text>
                 </RectButton>                   
               </View>
             </View>
           </ScrollView>
-          <FlatList
-            data={menuList}
-            horizontal={false}
-            ListEmptyComponent={()=>
+          {
+            subpage === "cardapio" ? 
             (
-              <View style={{paddingBottom: 200}}>
-                <ActivityIndicator>                
-                </ActivityIndicator>
-                <Text style={commonStyle.loadingText}>aguarde...</Text>                                
-              </View>
-            )}
-            style={{
-              paddingLeft: 16,
-              paddingRight: 16,
-              paddingBottom: 0,
-            }}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  maxHeight: 150,
-                  minHeight: 150,
-                  borderRadius: 14,
-                  borderTopLeftRadius: 0,
-                  backgroundColor: "#ffffff",
-                  marginBottom:16,
-                  padding: 10,
-                }}
-              >
+              <FlatList
+              data={menuList}
+              horizontal={false}
+              ListEmptyComponent={()=>
+              (
+                <View style={{paddingBottom: 200}}>
+                  <ActivityIndicator>                
+                  </ActivityIndicator>
+                  <Text style={commonStyle.loadingText}>aguarde...</Text>                                
+                </View>
+              )}
+              style={{
+                paddingLeft: 16,
+                paddingRight: 16,
+                paddingBottom: 0,
+              }}
+              renderItem={({ item }) => (
                 <View
-                    style={{
-                      flex:1,
-                      flexDirection: 'row',
-                      justifyContent: 'space-between'
-                    }}
-                  >
-                  <View style={{minWidth: 120, maxWidth:120, minHeight:120, maxHeight:120, }}>
-                    <Image style={commonStyle.menuPhoto} source={{uri: item.photo }}/>
-                  </View>
-                  <View>
-                    <Text style={commonStyle.merchantMenuTitle}>{item.name}</Text>
-                    <Text style={commonStyle.merchantMenuDescription}>{item.category_name}</Text>
-                    <Text style={commonStyle.merchantMenuDescription}>R$ {parseFloat(item.price.toString()).toFixed(2)}</Text>
-                    <RectButton style={commonStyle.buttonPrimary} onPress={() => { handleCart(item)}}>
-                      <View style={commonStyle.buttonIcon}>
-                        <Text>
-                          <FontAwesome name="plus"  color="#e7e7e7" size={12}></FontAwesome>
+                  style={{
+                    maxHeight: 136,
+                    minHeight: 136,
+                    borderRadius: 14,
+                    borderTopLeftRadius: 0,
+                    backgroundColor: "#ffffff",
+                    marginBottom:16,
+                    padding: 10,
+                  }}
+                >
+                  <View
+                      style={{
+                        flex:1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                    <View style={{minWidth: 120, maxWidth:120, minHeight:120, maxHeight:120, }}>
+                      <Image style={commonStyle.menuPhoto} source={{uri: item.photo }}/>
+                    </View>
+                    <View>
+                      <Text style={commonStyle.merchantMenuTitle}>{item.name}</Text>
+                      <Text style={commonStyle.merchantMenuDescription}>{item.category_name}</Text>
+                      <Text style={commonStyle.merchantMenuDescription}>R$ {parseFloat(item.price.toString()).toFixed(2)}</Text>
+                      <RectButton style={commonStyle.buttonPrimary} onPress={() => { handleCart(item)}}>
+                        <View style={commonStyle.buttonIcon}>
+                          <Text>
+                            <FontAwesome name="plus"  color="#e7e7e7" size={12}></FontAwesome>
+                          </Text>
+                        </View>
+                        <Text style={commonStyle.buttonText}>
+                          fazer pedido
                         </Text>
-                      </View>
-                      <Text style={commonStyle.buttonText}>
-                        fazer pedido
-                      </Text>
-                    </RectButton>                          
+                      </RectButton>                          
+                    </View>
                   </View>
                 </View>
-              </View>
-            )}
-          >                  
-          </FlatList>      
+              )}
+            >                  
+            </FlatList>                  
+            )
+            : null
+          }
+          {
+            subpage === "novidades" ? 
+            (
+            <ScrollView
+              style={{
+                paddingLeft: 16,
+                paddingRight: 16,
+                paddingBottom: 0,
+                minHeight: 275,
+              }}
+            >
+              <View
+                style={{
+                  borderRadius: 14,                  
+                  backgroundColor: "#ffffff",
+                  padding: 16,
+                  marginBottom: 16,                     
+                }}
+              >
+                <View>
+                  <Text style={commonStyle.newsTitle}>Qual o papel de uma alimentação adequada e saudável durante a pandemia de COVID?</Text>
+                </View>
+                <View style={{marginTop: 5}}>
+                    <Image style={commonStyle.newsPhoto} source={{
+                      uri: 'https://pixabay.com/get/52e1dd464950a814f6d1867dda35367b1c3cd7e35455714b_1920.jpg',
+                    }}></Image>
+                  </View>
+                  <View>
+                    <Text style={commonStyle.newsDescription}>                  
+                      Alimentos in natura, como frutas, legumes, verduras, grãos diversos, oleaginosas, tubérculos, raízes, carnes e ovos, são saudáveis e excelentes fontes de fibras, de vitaminas, minerais e de vários compostos que são essenciais para a manutenção da saúde e a prevenção de muitas doenças. Inclusive aquelas que aumentam o risco de complicações do Coronavírus, como diabetes, hipertensão e obesidade
+                    </Text>                  
+                  </View>
+                  <View style={{
+                  flex: 1,
+                  flexDirection: 'row'
+                }
+                }>
+                  <Text style={commonStyle.newsMore}>                  
+                    Saiba mais em:&nbsp;
+                  </Text>                  
+                  <Text style={commonStyle.newsLink}>                  
+                    saudebrasil.saude.gov.br
+                  </Text>                  
+                </View>
+              </View>   
+              <View
+                style={{
+                  borderRadius: 14,                  
+                  backgroundColor: "#ffffff",
+                  padding: 16,                     
+                }}
+              >
+                <View>
+                  <Text style={commonStyle.newsTitle}>O que quer dizer comida de verdade?</Text>
+                </View>
+                <View style={{marginTop: 5}}>
+                  <Image style={commonStyle.newsPhoto} source={{
+                    uri: 'https://pixabay.com/get/54e7d0454e54ab14f6d1867dda35367b1c3cd7e35a58784f_1920.jpg',
+                  }}></Image>
+                </View>
+                <View>
+                  <Text style={commonStyle.newsDescription}>                  
+                    Já parou para pensar no conceito de alimentação saudável? Muita gente pode acabar associando o termo a alimentos “especiais”, mais caros, raros e pouco acessíveis. Mas a resposta para essa pergunta pode ser bem mais simples do que você imagina.
+                  </Text>                  
+                  <Text style={commonStyle.newsDescription}>                  
+                    Estamos falando da comida de verdade. Um conceito já bem conhecido por quem acompanha o Guia Alimentar para a População Brasileira, elaborado pelo Ministério da Saúde. De acordo com a publicação, a regra de ouro para comer de forma saudável é basear a alimentação em alimentos in natura ou minimamente processados.
+                  </Text>                  
+                  <Text style={commonStyle.newsDescription}>                  
+                    Segundo a Dra. Elisabetta Recine, nutricionista, docente e coordenadora do Observatório de Políticas de Segurança Alimentar e Nutrição da Universidade de Brasília (UnB), a comida de verdade nada mais é do que a tradução popular da alimentação adequada e saudável.
+                  </Text>                  
+                </View>
+                <View style={{
+                  flex: 1,
+                  flexDirection: 'row'
+                }
+                }>
+                  <Text style={commonStyle.newsMore}>                  
+                    Saiba mais em:&nbsp;
+                  </Text>                  
+                  <Text style={commonStyle.newsLink}>                  
+                    saudebrasil.saude.gov.br
+                  </Text>                  
+                </View>
+              </View>        
+            </ScrollView>                           
+            )
+            : null
+          }
+          {
+            subpage === "fornecedores" ? 
+            (
+            <ScrollView
+              style={{
+                paddingLeft: 16,
+                paddingRight: 16,
+                paddingBottom: 0,
+                minHeight: 275,
+              }}
+            >
+              <View>
+                <Text style={commonStyle.newsTitle}>Conheça quem fornece os alimentos que você consome. Nós valorizamos o produtores locais!</Text>
+              </View>              
+              <View style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}>
+                <View
+                  style={{
+                    borderRadius: 14,                  
+                    backgroundColor: "#ffffff",
+                    padding: 16,
+                    marginBottom: 16,   
+                    marginTop: 5,
+                    marginRight: 10,
+                    minHeight: 220                  
+                  }}
+                >
+                  <View>
+                    <Text style={commonStyle.newsTitle}>Hortifruti Zanon</Text>
+                  </View>
+                  <View>
+                    <Image style={commonStyle.providerImage} source={{
+                      uri: 'https://pixabay.com/get/57e7d4434950a414f6d1867dda35367b1c3cd7e25152764d_1920.jpg',
+                    }}></Image>
+                  </View>
+                  <View>
+                    <Text style={commonStyle.providerLink}>                  
+                      zanonhortifruti.com.br
+                    </Text>                  
+                  </View>
+                </View>   
+                <View
+                  style={{
+                    borderRadius: 14,                  
+                    backgroundColor: "#ffffff",
+                    padding: 16,
+                    marginBottom: 16,   
+                    marginTop: 5,
+                    marginRight: 10,
+                    minHeight: 220                      
+                  }}
+                >
+                  <View>
+                    <Text style={commonStyle.newsTitle}>MelanciaSim</Text>
+                  </View>
+                  <View>
+                    <Image style={commonStyle.providerImage} source={{
+                      uri: 'https://pixabay.com/get/54e3d3444a50a514f6d1867dda35367b1c3cd7e25151774d_1920.jpg',
+                    }}></Image>
+                  </View>
+                  <View>
+                    <Text style={commonStyle.providerLink}>                  
+                      pedemanga.com.br
+                    </Text>                  
+                  </View>
+                </View>  
+              </View>   
+              <View style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}>
+                <View
+                  style={{
+                    borderRadius: 14,                  
+                    backgroundColor: "#ffffff",
+                    padding: 16,
+                    marginBottom: 16,   
+                    marginTop: 5,
+                    marginRight: 10,
+                    minHeight: 220                  
+                  }}
+                >
+                  <View>
+                    <Text style={commonStyle.newsTitle}>Doce Sabor</Text>
+                  </View>
+                  <View>
+                    <Image style={commonStyle.providerImage} source={{
+                      uri: 'https://pixabay.com/get/57e0dd424950a814f6d1867dda35367b1c3cd7e251547740_1920.jpg',
+                    }}></Image>
+                  </View>
+                  <View>
+                    <Text style={commonStyle.providerLink}>                  
+                      sobremesasdocesabor.com.br
+                    </Text>                  
+                  </View>
+                </View>   
+                <View
+                  style={{
+                    borderRadius: 14,                  
+                    backgroundColor: "#ffffff",
+                    padding: 16,
+                    marginBottom: 16,   
+                    marginTop: 5,
+                    marginRight: 10,
+                    minHeight: 220,                     
+                  }}
+                >
+                  <View>
+                    <Text style={commonStyle.newsTitle}>Pecuária Taurus</Text>
+                  </View>
+                  <View>
+                    <Image style={commonStyle.providerImage} source={{
+                      uri: 'https://pixabay.com/get/57e2d64a4e51a814f6d1867dda35367b1c3cd7e25156774b_1920.jpg',
+                    }}></Image>
+                  </View>
+                  <View>
+                    <Text style={commonStyle.providerLink}>                  
+                      pecuaria.com.br
+                    </Text>                  
+                  </View>
+                </View>  
+              </View>                  
+            </ScrollView>                           
+            )
+            : null
+          }
           <View style={footerStyle.footer}>
             <View style={footerStyle.footerItems}>
               <View style={footerStyle.footerItem}>
@@ -340,7 +565,7 @@ const PageMerchantDetail = () => {
               </View>
               <View style={footerStyle.footerItem}>
                 <TouchableOpacity
-                  onPress={() => alert('Pressed!')}
+                  onPress={() => handleClub()}
                 >
                   <Text style={{opacity: 0.5, paddingTop: 3}}>
                     <FontAwesome name="gift" size={40}></FontAwesome>
@@ -349,7 +574,7 @@ const PageMerchantDetail = () => {
               </View>
               <View style={footerStyle.footerItem}>
                 <TouchableOpacity
-                  onPress={() => alert('Pressed!')}
+                  onPress={() => handleProfile()}
                 >
                   <Text style={{opacity: 0.5, paddingTop: 3}}>
                     <FontAwesome name="user" size={40}></FontAwesome>

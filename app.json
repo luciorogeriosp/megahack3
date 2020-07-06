@@ -1,12 +1,21 @@
 {
   "name": "megahack3",
   "displayName": "megahack3",
+  "platforms": [
+    "ios",
+    "android",
+    "web"
+  ],
   "expo": {
     "name": "megahack3",
     "slug": "megahack3",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.megahack3.minhaesquina",
+      "versionCode": 1
+    }
   }
 }

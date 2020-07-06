@@ -277,7 +277,185 @@ const commonStyle = StyleSheet.create({
       borderRadius: 10,
       borderWidth: 0.4,
       borderColor: '#ccc'
+    },  
+
+    newsPhoto: {
+      width: fullWidth - 64,
+      height: 120,
+      resizeMode: 'cover',
+      borderRadius: 10,
+      borderWidth: 0.4,
+      borderColor: '#ccc',
+      opacity: 0.8
+    },  
+
+    newsDescription: {
+      marginTop: 5, 
+      textAlign: 'justify',
+      fontSize: 12,
+      fontFamily: 'Roboto_400Regular',      
+    },
+
+    newsMore: {
+      marginTop: 5, 
+      textAlign: 'justify',
+      fontSize: 12,
+      fontFamily: 'Roboto_500Medium',      
+    },
+
+    newsLink: {
+      marginTop: 5, 
+      textAlign: 'justify',
+      fontSize: 12,
+      fontFamily: 'Roboto_500Medium',   
+      textDecorationLine: 'underline'   
+    },
+
+    newsTitle: {
+      color: '#322153',
+      fontSize: 16,
+      fontFamily: 'Ubuntu_700Bold'
     },    
+
+    providerTitle: {
+      color: '#322153',
+      fontSize: 16,
+      fontStyle: 'italic',
+      fontFamily: 'Ubuntu_700Bold',    
+      textAlign: 'center'   
+    },       
+
+    providerLink: {
+      color: '#322153',
+      fontSize: 9,
+      fontFamily: 'Roboto_500Medium',    
+      textAlign: 'center',
+      textDecorationLine: 'underline'
+    },       
+
+    providerImage: {
+      width: (fullWidth - 125) / 2,
+      height: (fullWidth - 125) / 2,
+      resizeMode: 'cover',
+      borderRadius: 10,
+      borderWidth: 0.4,
+      borderColor: '#ccc',
+      opacity: 0.8   
+    },
+    
+    orderTitle: {
+      color: '#000000',
+      fontSize: 14,
+      fontFamily: 'Roboto_500Medium'      
+    },
+
+    orderText: {
+      color: '#000000',
+      fontSize: 12,
+      fontFamily: 'Roboto_500Medium'      
+    },
+
+    logo: {
+      width: 100,
+      height: 100,
+      resizeMode: 'cover',
+      borderRadius: 10,
+      borderWidth: 0.4,
+      borderColor: '#ccc',
+      opacity: 0.8,
+      backgroundColor: '#fff'
+    },        
+
+    qrcode: {
+      width: 170,
+      height: 170,
+      resizeMode: 'cover',
+      borderRadius: 10,
+      borderWidth: 0.4,
+      borderColor: '#ccc',
+      opacity: 0.8   
+    }, 
+
+    orderTextInfo: {
+      color: '#282828',
+      fontSize: 10,
+      fontFamily: 'Roboto_500Medium',
+      textAlign: 'center'    
+    },
+
+    evaluateTitle: {
+      color: '#404040',
+      fontSize: 16,
+      fontFamily: 'Roboto_500Medium',
+      textAlign: 'justify'
+    },
+
+    evaluateCategoryCleanTitle: {
+      color: '#f6921e',
+      fontSize: 16,
+      fontFamily: 'Roboto_500Medium',
+      textAlign: 'justify'
+    },
+
+    evaluateCategoryFoodTitle: {
+      color: '#9e1f63',
+      fontSize: 16,
+      fontFamily: 'Roboto_500Medium',
+      textAlign: 'justify'
+    },    
+
+    evaluateQuestionTitle: {
+      color: '#000000',
+      fontSize: 14,
+      fontFamily: 'Roboto_500Medium'      
+    },
+ 
+    evaluateThanks: {
+      color: '#000000',
+      fontSize: 20,
+      fontFamily: 'Roboto_500Medium'      
+    },
+
+    evaluateThanksTitle: {
+      color: '#39b449',
+      fontSize: 20,
+      fontFamily: 'Roboto_500Medium',
+      textAlign: 'justify'
+    },
+
+    evaluateOK: {
+      width: 60,
+      height: 60,
+      resizeMode: 'cover',
+      borderRadius: 10,
+    },
+
+    clubTitle: {
+      color: '#000000',
+      fontSize: 20,
+      fontFamily: 'Roboto_500Medium',
+    },
+
+    clubDescription: {
+      color: '#000000',
+      fontSize: 12,
+      fontFamily: 'Roboto_500Medium',
+    },
+
+    clubImage: {
+      width: 150,
+      height: 71,
+      resizeMode: 'cover',
+      borderRadius: 10,
+    },    
+
+    clubPoints: {
+      color: '#000000',
+      fontSize: 12,
+      fontFamily: 'Roboto_500Medium',
+      textAlign: 'center',
+    },
+    
 })
   
 export { commonStyle }    

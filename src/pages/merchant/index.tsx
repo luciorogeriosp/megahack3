@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Image, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { commonStyle } from '../../components/styles/common-style'
@@ -46,12 +46,16 @@ const PageMerchant = () => {
       loadMerchant();
     }, []);
 
-    function handleNavigateMenu(){
-      navigation.navigate("Menu");
-    }
-
     function handleNavigateHome(){
       navigation.navigate("PageMerchant");
+    }
+
+    function handleClub(){
+      navigation.navigate("PageClub");
+    }
+
+    function handleProfile(){
+      navigation.navigate("PageProfile");
     }
 
     function handleFilter(item: FilterModel){
@@ -124,8 +128,8 @@ const PageMerchant = () => {
               >
                 <View
                   style={{
-                    maxHeight: 150,
-                    minHeight: 150,
+                    maxHeight: 140,
+                    minHeight: 140,
                     borderRadius: 14,
                     borderTopLeftRadius: 0,
                     backgroundColor: "#ffffff",
@@ -183,7 +187,7 @@ const PageMerchant = () => {
                     <View style={{minWidth: 80, maxWidth:80, minHeight:80, maxHeight:80, }}>
                       <Image style={commonStyle.merchantLogo} source={{uri: item.logo }}/>
                       <Text style={commonStyle.merchantListCategory}>{item.category}</Text>
-                      <View style={{minHeight:12, maxHeight:12, flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                      <View style={{minHeight:12, maxHeight:12, flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
                         <FontAwesome name="star" color={item.evaluation >= 1 ? "#faae02" : "#cccccc"} size={12}></FontAwesome>
                         <FontAwesome name="star" color={item.evaluation >= 2 ? "#faae02" : "#cccccc"} size={12}></FontAwesome>
                         <FontAwesome name="star" color={item.evaluation >= 3 ? "#faae02" : "#cccccc"} size={12}></FontAwesome>
@@ -221,7 +225,7 @@ const PageMerchant = () => {
               </View>
               <View style={footerStyle.footerItem}>
                 <TouchableOpacity
-                  onPress={() => alert('Pressed!')}
+                  onPress={() => handleClub()}
                 >
                   <Text style={{opacity: 0.5, paddingTop: 3}}>
                     <FontAwesome name="gift" size={40}></FontAwesome>
@@ -230,7 +234,7 @@ const PageMerchant = () => {
               </View>
               <View style={footerStyle.footerItem}>
                 <TouchableOpacity
-                  onPress={() => alert('Pressed!')}
+                  onPress={() => handleProfile()}
                 >
                   <Text style={{opacity: 0.5, paddingTop: 3}}>
                     <FontAwesome name="user" size={40}></FontAwesome>
