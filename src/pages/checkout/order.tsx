@@ -308,7 +308,7 @@ const PageOrder = () => {
                 <TouchableOpacity
                   onPress={() => handleEvaluate()}
                 >
-                  <Image style={commonStyle.qrcode} source={{uri: 'https://pixabay.com/get/57e6d2474353ad14f6da8c7dda35367b1c3cd7ed50577348_1280.png'}}></Image>
+                  <Image style={commonStyle.qrcode} source={require('../../../assets/icon/icon-winner.png')}></Image>
                   <Text style={commonStyle.orderTextInfo}>Avalie esse pedido e ganhe pontos do Clube de Vantagens</Text>
                 </TouchableOpacity>
               </View>
