@@ -1,20 +1,22 @@
 {
-  "name": "megahack3",
-  "displayName": "megahack3",
+  "name": "Minha Esquina",
+  "displayName": "Minha Esquina",
   "platforms": [
     "ios",
     "android",
     "web"
   ],
   "expo": {
-    "name": "megahack3",
-    "slug": "megahack3",
+    "name": "Minha Esquina",
+    "slug": "MinhaEsquina",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "assetBundlePatterns": [
       "**/*"
     ],
     "android": {
-      "package": "com.megahack3.minhaesquina",
+      "package": "com.minhaesquina",
       "versionCode": 1
     }
   }
