@@ -2,6 +2,7 @@ export class CartModel {
     constructor(      
 
     ) {
+        this.id = 0;
         this.menu_id = 0;
         this.category_name = "";
         this.name = "";
@@ -10,6 +11,7 @@ export class CartModel {
         this.quantity = 0;
     }
 
+    public id: number;
     public menu_id: number;
     public category_name: string;        
     public name: string;
